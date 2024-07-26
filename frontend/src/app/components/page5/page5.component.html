@@ -4,7 +4,7 @@
   <!-- Kullanıcı ID'sini manuel olarak girme alanı -->
   <div class="input-container">
     <label for="userId">User ID:</label>
-    <input type="text" id="userId" [(ngModel)]="userId" />
+    <input type="text" id="userIdInput" [(ngModel)]="userId" />
     <button (click)="fetchButtonClicks()">Get Button Clicks</button>
   </div>
 
@@ -12,11 +12,10 @@
     <h3>Button Clicks</h3>
     <ul>
       <li *ngFor="let click of buttonClicks">
-        Button ID: {{ click.buttonId }} - Click Count: {{ click.count }}
+        Button Name: {{ click.button_name }} - Click Count: {{ click.click_count }}
       </li>
     </ul>
   </div>
-
   <p *ngIf="message">{{ message }}</p>
   <br>
   <button (click)="logout()">Çıkış Yap</button>
