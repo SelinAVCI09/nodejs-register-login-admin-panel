@@ -1,0 +1,22 @@
+<div class="wrapper">
+  <form>
+    <h2>Login</h2>
+    <div class="input-field">
+      <input type="text" #username required>
+      <label>Kullanıcı Adı</label>
+    </div>
+    <div class="input-field">
+      <input type="password" #password required>
+      <label>Şifre</label>
+    </div>
+    <button type="button" (click)="loginClick(username.value, password.value)">Giriş Yap</button><br>
+    <div class="login">
+      <p>Henüz üye değil misin? <a routerLink="/register">Kayıt Ol</a></p>
+    </div><br>
+    <div class="login">
+      <p>Admnin girişi <a routerLink="/admin-login">Admin girişi</a></p>
+    </div><br>
+  </form>
+  <p>{{ message }}</p>
+</div>
+ 
