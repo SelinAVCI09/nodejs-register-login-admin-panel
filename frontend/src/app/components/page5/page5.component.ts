@@ -8,14 +8,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./page5.component.css']
 })
 export class Page5Component implements OnInit {
+  userId: string = ''; // Kullanıcı ID'sini manuel olarak al
   buttonClicks: any[] = [];
   message: string = '';
-  userId: string = ''; // Kullanıcı ID'si için değişken
 
   constructor(private buttonClickService: ButtonClickService, private router: Router) {}
 
   ngOnInit(): void {
-    // Sayfa yüklendiğinde yapılacak işlemler
+    // Kullanıcı ID'sini sessionStorage'dan alabilirsiniz
+    this.userId = sessionStorage.getItem('userId') || ''; // Örneğin, sessionStorage'dan al
   }
 
   fetchButtonClicks(): void {
@@ -25,7 +26,8 @@ export class Page5Component implements OnInit {
     }
 
     this.buttonClickService.getButtonClicks(this.userId).subscribe(
-      (response: any) => {
+      (response: any[]) => {
+        console.log('Button Clicks Response:', response); // Yanıtı kontrol etmek için log
         this.buttonClicks = response;
         this.message = '';
       },
@@ -37,9 +39,8 @@ export class Page5Component implements OnInit {
   }
 
   logout() {
-    // Oturum kapatma işlemleri burada yapılır
     console.log('User logged out');
-    sessionStorage.removeItem('userId'); // Oturum kapatma sırasında kullanıcı ID'sini kaldırabilirsiniz
+    sessionStorage.removeItem('userId');
     this.router.navigate(['/login']);
   }
 }
