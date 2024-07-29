@@ -25,7 +25,6 @@ router.post('/register', (req, res) => {
 router.post('/login', (req, res) => {
   const { username, password } = req.body;
   console.log('Gelen kullanıcı adı:', username);
-
   db.query('SELECT * FROM users WHERE username = ?', [username], (err, results) => {
     if (err) {
       console.error('Giriş yaparken hata oluştu:', err);
@@ -36,7 +35,7 @@ router.post('/login', (req, res) => {
       console.log('Kullanıcı bulunamadı veya yanlış kullanıcı adı');
       return res.status(401).json({ message: 'Invalid username or password' });
     }
-
+console.log('results : ', results);
     const user = results[0];
     console.log('Bulunan kullanıcı:', user);
 
@@ -58,8 +57,9 @@ router.post('/login', (req, res) => {
         { expiresIn: '1h' }
       );
       console.log('Oluşturulan token:', token);
+      res.json({ message: 'Token is valid',token, id: user.id });
 
-      res.json({ token });
+     
     });
   });
 });

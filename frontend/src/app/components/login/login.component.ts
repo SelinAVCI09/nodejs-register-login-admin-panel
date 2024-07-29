@@ -23,6 +23,9 @@ export class LoginComponent {
     this.loginService.login(user).subscribe(
       (response: any) => {
         console.log('Login successful:', response);
+        const userId = (response.id); // Kullanıcı ID'sini sayıya dönüştür
+        console.log('jhjgg :', userId)
+        sessionStorage.setItem('userId', userId.toString()); // Sayıyı stringe çevirip kaydet
         this.router.navigate(['/page1']);
       },
       (error: HttpErrorResponse) => {

@@ -13,21 +13,32 @@ export class Page1Component {
   constructor(private router: Router, private http: HttpClient) { }
 
   navigateToPage(page: string, buttonName: string) {
-    // Buton tıklama bilgisini API'ye gönder
     this.recordButtonClick(buttonName);
     this.router.navigate([`/${page}`]);
   }
 
   logout() {
-    // Oturum kapatma işlemleri burada yapılır.
     console.log('User logged out');
+    sessionStorage.removeItem('userId');
     this.router.navigate(['/login']);
   }
 
   private recordButtonClick(buttonName: string) {
-    // Kullanıcı ID'si ve buton ismini API'ye gönder
-    const userId = 'exampleUserId'; // Bu değeri dinamik olarak ayarlayın
-    this.http.post(this.apiUrl, { userId, buttonName })
+    const userId = sessionStorage.getItem('userId');
+
+    if (!userId) {
+      console.error('No User ID found');
+      return;
+    }
+
+    const userIdNumber = Number(userId); // Kullanıcı ID'sini sayıya dönüştür
+
+    if (isNaN(userIdNumber)) {
+      console.error('Invalid User ID');
+      return;
+    }
+
+    this.http.post(this.apiUrl, { userId: userIdNumber, buttonName })
       .subscribe(response => {
         console.log('Button click recorded', response);
       }, error => {

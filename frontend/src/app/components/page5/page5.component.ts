@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./page5.component.css']
 })
 export class Page5Component implements OnInit {
-  userId: string = ''; // Kullanıcı ID'sini manuel olarak al
+  userId: number | null = null; // Kullanıcı ID'sini number olarak tanımlayın
   buttonClicks: any[] = [];
   message: string = '';
 
@@ -16,11 +16,12 @@ export class Page5Component implements OnInit {
 
   ngOnInit(): void {
     // Kullanıcı ID'sini sessionStorage'dan alabilirsiniz
-    this.userId = sessionStorage.getItem('userId') || ''; // Örneğin, sessionStorage'dan al
+    const userIdFromStorage = sessionStorage.getItem('userId');
+    this.userId = userIdFromStorage ? parseInt(userIdFromStorage, 10) : null; // number olarak dönüştürün
   }
 
   fetchButtonClicks(): void {
-    if (!this.userId) {
+    if (this.userId === null) {
       this.message = 'User ID is required';
       return;
     }

@@ -10,11 +10,11 @@ export class ButtonClickService {
 
   constructor(private http: HttpClient) { }
 
-  getButtonClicks(userId: string): Observable<any[]> {
+  getButtonClicks(userId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/button-clicks/${userId}`);
   }
 
-  recordButtonClick(userId: string, buttonName: string): Observable<any> {
+  recordButtonClick(userId: number, buttonName: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/record-button-click`, { userId, buttonName });
   }
 }
