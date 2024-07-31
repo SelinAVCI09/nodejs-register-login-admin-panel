@@ -14,31 +14,22 @@ body {
   min-height: 100vh;
   width: 100%;
   padding: 0 10px;
-}
-
-body::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
   background: url("https://www.codingnepalweb.com/demos/create-glassmorphism-login-form-html-css/hero-bg.jpg"), #000;
   background-position: center;
   background-size: cover;
 }
 
-.wrapper {
-  width: 400px;
+.container {
+  width: 100%;
+  max-width: 800px;
   border-radius: 8px;
-  padding: 30px;
+  padding: 20px;
   text-align: center;
   border: 1px solid rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(9px);
   -webkit-backdrop-filter: blur(9px);
-}
-
-form {
-  display: flex;
-  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.5); /* Arka plan rengini koyu hale getir */
+  color: #fff; /* Metin rengini beyaz yap */
 }
 
 h2 {
@@ -47,47 +38,30 @@ h2 {
   color: #fff;
 }
 
-.input-field {
-  position: relative;
-  border-bottom: 2px solid #ccc;
-  margin: 15px 0;
+.input-container {
+  margin-bottom: 20px;
 }
 
-.input-field label {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  color: #fff;
+.input-container label {
   font-size: 16px;
-  pointer-events: none;
-  transition: 0.15s ease;
+  color: #fff;
 }
 
-.input-field input {
+.input-container input {
   width: 100%;
   height: 40px;
   background: transparent;
-  border: none;
+  border: 2px solid #ccc;
   outline: none;
   font-size: 16px;
   color: #fff;
+  border-radius: 4px;
+  padding: 0 10px;
+  margin-top: 5px;
 }
 
-.input-field input:focus~label,
-.input-field input:valid~label {
-  font-size: 0.8rem;
-  top: 10px;
-  transform: translateY(-120%);
-}
-
-.wrapper a {
-  color: #efefef;
-  text-decoration: none;
-}
-
-.wrapper a:hover {
-  text-decoration: underline;
+.input-container input:focus {
+  border-color: #fff;
 }
 
 button {
@@ -101,12 +75,37 @@ button {
   font-size: 16px;
   border: 2px solid transparent;
   transition: 0.3s ease;
+  margin-top: 10px;
 }
 
 button:hover {
   color: #fff;
   border-color: #fff;
   background: rgba(255, 255, 255, 0.15);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table, th, td {
+  border: 1px solid #fff;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #444;
+}
+
+p {
+  color: #f00; /* Hata mesajları için kırmızı renk */
+  margin-top: 20px;
 }
 
 .register {

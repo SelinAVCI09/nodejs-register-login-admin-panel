@@ -1,21 +1,53 @@
 <div class="container">
-  <h2>Page 5</h2>
+  <h2>ADMİN PANEL</h2>
 
   <!-- Kullanıcı ID'sini manuel olarak girme alanı -->
   <div class="input-container">
     <label for="userId">User ID:</label>
     <input type="text" id="userIdInput" [(ngModel)]="userId" />
-    <button (click)="fetchButtonClicks()">Get Button Clicks</button>
+    <button (click)="fetchButtonClicks()">Buton verilerini getir</button>
   </div>
 
+  <!-- Tıklama bilgileri tablosu -->
   <div *ngIf="buttonClicks.length > 0">
-    <h3>Button Clicks</h3>
-    <ul>
-      <li *ngFor="let click of buttonClicks">
-        Button Name: {{ click.button_name }} - Click Count: {{ click.click_count }}
-      </li>
-    </ul>
+    <h3>Button Tıklanmaları</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Button Name</th>
+          <th>Click Count</th>
+          <th>Entry Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let click of buttonClicks">
+          <td>{{ click.button_name }}</td>
+          <td>{{ click.click_count }}</td>
+          <td>{{ click.entry_time }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+
+  <!-- Toplam tıklama bilgileri tablosu -->
+  <div *ngIf="buttonClickTotals.length > 0">
+    <h3>Total Button Tıklanmaları</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Button Name</th>
+          <th>Total Clicks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let total of buttonClickTotals">
+          <td>{{ total.button_name }}</td>
+          <td>{{ total.total_clicks }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <p *ngIf="message">{{ message }}</p>
   <br>
   <button (click)="logout()">Çıkış Yap</button>

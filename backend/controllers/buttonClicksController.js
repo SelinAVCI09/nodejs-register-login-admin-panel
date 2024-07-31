@@ -9,7 +9,7 @@ const recordButtonClick = (req, res) => {
   }
 
   db.query(
-    'INSERT INTO button_stats (user_id, button_name, click_count) VALUES (?, ?, 1) ON DUPLICATE KEY UPDATE click_count = click_count + 1',
+    'INSERT INTO button_stats (user_id, button_name, click_count, entry_time) VALUES (?, ?, 1, NOW()) ON DUPLICATE KEY UPDATE click_count = click_count + 1, entry_time = VALUES(entry_time)',
     [userId, buttonName],
     (err, results) => {
       if (err) {
@@ -25,11 +25,14 @@ const getButtonClicks = (req, res) => {
   const { userId } = req.params;
 
   db.query(
-    'SELECT button_name, click_count FROM button_stats WHERE user_id = ?',
+    'SELECT button_name, click_count, entry_time FROM button_stats WHERE user_id = ?',
     [userId],
     (err, results) => {
       if (err) {
         return res.status(500).json({ error: err.message });
+      }
+      if (results.length === 0) {
+        return res.status(404).json({ message: 'No button clicks found for this user ID' });
       }
       res.json(results);
     }
