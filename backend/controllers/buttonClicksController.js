@@ -1,4 +1,15 @@
 const db = require('../config/db');
+//dbsi şu şekilde olmalıdır 
+//CREATE TABLE button_stats (
+//  id INT AUTO_INCREMENT PRIMARY KEY,
+ // user_id INT NOT NULL,
+  //button_name VARCHAR(255) NOT NULL,
+  //click_count INT NOT NULL DEFAULT 1,
+  //entry_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+  //-- Eğer user_id ve button_name kombinasyonunun tekrarını önlemek istiyorsanız, aşağıdaki UNIQUE constraint'i ekleyebilirsiniz.
+  //UNIQUE KEY unique_click (user_id, button_name, entry_time)
+//);-->
+
 
 // Buton tıklama kaydını yapar
 const recordButtonClick = (req, res) => {
@@ -9,7 +20,7 @@ const recordButtonClick = (req, res) => {
   }
 
   db.query(
-    'INSERT INTO button_stats (user_id, button_name, click_count, entry_time) VALUES (?, ?, 1, NOW()) ON DUPLICATE KEY UPDATE click_count = click_count + 1, entry_time = VALUES(entry_time)',
+    'INSERT INTO button_stats (user_id, button_name, click_count, entry_time) VALUES (?, ?, 1, NOW())',
     [userId, buttonName],
     (err, results) => {
       if (err) {
