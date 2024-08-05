@@ -25,7 +25,7 @@ const getButtonClicks = (req, res) => {
   const { userId } = req.params;
 
   db.query(
-    'SELECT button_name, click_count, entry_time FROM button_stats WHERE user_id = ?',
+    'SELECT button_name, click_count, entry_time FROM button_stats WHERE user_id = ? ORDER BY entry_time ASC',
     [userId],
     (err, results) => {
       if (err) {

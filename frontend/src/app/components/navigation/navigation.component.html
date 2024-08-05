@@ -1,0 +1,19 @@
+<!-- src/app/components/navigation/navigation.component.html -->
+<table>
+  <thead>
+    <tr>
+      <th>User ID</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Button Clicks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let stat of userStats">
+      <td>{{ stat.userId }}</td>
+      <td>{{ getUsername(stat.userId) }}</td>
+      <td>{{ getEmail(stat.userId) }}</td>
+      <td>{{ stat.buttonClicks }}</td>
+    </tr>
+  </tbody>
+</table>

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
+import * as jwtDecode from 'jwt-decode';
+
 const db = require('../config/db');
 
 // Kullanıcı kimlik doğrulama endpoint'i

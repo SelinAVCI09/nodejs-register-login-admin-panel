@@ -1,9 +1,24 @@
-<!-- page1.component.html -->
+
 <div>
-  <h1>Birinci Sayfa</h1>
-  <button (click)="navigateToPage('page2', 'buttonPage2')">Go to Page 2</button><br>
-  <button (click)="navigateToPage('page3', 'buttonPage3')">Go to Page 3</button><br>
-  <button (click)="navigateToPage('page4', 'buttonPage4')">Go to Page 4</button><br>
-  <button (click)="navigateToPage('page1', 'buttonPage1')">Go to Page 1</button><br>
-  <button (click)="logout()">Çıkış Yap</button><br>
+  <span
+data-active-content="🤨"
+data-hover-content="🤯"
+data-content="🤓"
+class="💀"
+></span>
+
+  <div class="cards">
+    <div class="card red" (click)="navigateToPage('page2', 'buttonPage2')">
+      <p class="tip">Sayfa 2 e git</p>
+    </div>
+    <div class="card blue" (click)="navigateToPage('page3', 'buttonPage3')">
+      <p class="tip">Sayfa 3 e git /p>
+    </div>
+    <div class="card green" (click)="navigateToPage('page4', 'buttonPage4')">
+      <p class="tip">Sayfa4 e git</p>
+    </div>
+    <div class="card green" (click)="logout()">
+      <p class="tip">Çıkış Yap</p>
+    </div>
+  </div>
 </div>

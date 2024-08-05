@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginService } from '../../services/login.service'; // Import yolu kontrol edin
+import { LoginService } from '../../services/login.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from '../../models/user.model';
 
@@ -23,10 +23,11 @@ export class LoginComponent {
     this.loginService.login(user).subscribe(
       (response: any) => {
         console.log('Login successful:', response);
-        const userId = (response.id); // Kullanıcı ID'sini sayıya dönüştür
-        console.log('jhjgg :', userId)
-        sessionStorage.setItem('userId', userId.toString()); // Sayıyı stringe çevirip kaydet
-        this.router.navigate(['/page1']);
+        const userId = response.id; // Kullanıcı ID'sini alın
+        const token = response.token; // Token'ı alın
+        sessionStorage.setItem('userId', userId.toString()); // Kullanıcı ID'sini sessionStorage'da saklayın
+        localStorage.setItem('auth-token', token); // Token'ı localStorage'da saklayın
+        this.router.navigate(['/page1']); // Page1 sayfasına yönlendirin
       },
       (error: HttpErrorResponse) => {
         console.error('Login error:', error);

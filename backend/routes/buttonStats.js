@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const buttonClicksController = require('../controllers/buttonClicksController'); // Doğru dosya adını kullanın
+const buttonClicksController = require('../controllers/buttonClicksController');
 
 // Buton tıklama kaydını yapar
 router.post('/record-button-click', buttonClicksController.recordButtonClick);

@@ -14,7 +14,7 @@ import { Page2Component } from './components/page2/page2.component';
 import { Page3Component } from './components/page3/page3.component';
 import { Page4Component } from './components/page4/page4.component';
 import { Page5Component } from './components/page5/page5.component';
-
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +22,7 @@ import { Page5Component } from './components/page5/page5.component';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
+    NavigationComponent,
     Page1Component,
     Page2Component,
     Page3Component,

@@ -1,14 +1,13 @@
-// src/app/services/auth.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { jwtDecode } from 'jwt-decode'; // Adlandırılmış import ile import et
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:4002/api'; // API URL'inizi güncelledik
+  private apiUrl = 'http://localhost:4002/api'; // API URL'iniz
   private tokenKey = 'auth-token';
 
   constructor(private http: HttpClient) {}
@@ -30,7 +29,7 @@ export class AuthService {
 
   // Decode token
   decodeToken(token: string): any {
-    return jwtDecode(token);
+    return jwtDecode(token); // Adlandırılmış fonksiyon kullanımı
   }
 
   // Get user ID from token
