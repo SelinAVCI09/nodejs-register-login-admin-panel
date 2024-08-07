@@ -1,0 +1,14 @@
+<div class="wrapper">
+  <form>
+    <h2>Admin Giriş</h2>
+    <div class="input-field">
+      <input type="text" #username required>
+      <label>Kullanıcı Adı</label>
+    </div>
+    <div class="input-field">
+      <input type="password" #password required>
+      <label>Şifre</label>
+    </div>
+    <button type="button" (click)="onLogin(username.value, password.value)">Giriş Yap</button>
+  </form>
+</div>
