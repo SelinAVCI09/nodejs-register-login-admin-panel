@@ -21,25 +21,64 @@ router.post('/register', (req, res) => {
   });
 });
 
-// Giriş yapma endpoint'i
 router.post('/login', (req, res) => {
   const { username, password } = req.body;
-  console.log('Gelen kullanıcı adı:', username);
   db.query('SELECT * FROM users WHERE username = ?', [username], (err, results) => {
     if (err) {
-      console.error('Giriş yaparken hata oluştu:', err);
       return res.status(500).json({ message: 'Error logging in' });
     }
 
     if (results.length === 0) {
-      console.log('Kullanıcı bulunamadı veya yanlış kullanıcı adı');
       return res.status(401).json({ message: 'Invalid username or password' });
     }
-console.log('results : ', results);
-    const user = results[0];
-    console.log('Bulunan kullanıcı:', user);
 
+    const user = results[0];
     bcrypt.compare(password, user.password, (err, isMatch) => {
+      if (err) {
+        return res.status(500).json({ message: 'Error logging in' });
+      }
+
+      if (!isMatch) {
+        return res.status(401).json({ message: 'Invalid username or password' });
+      }
+
+      const token = jwt.sign(
+        { id: user.id, username: user.username },
+        'your_jwt_secret',
+        { expiresIn: '1h' }
+      );
+
+      res.json({ message: 'Token is valid', token, id: user.id }); // id burada döndürülüyor
+    });
+  });
+});
+
+
+// Admin giriş endpoint'i
+router.post('/admin-login', (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).json({ message: 'Username and password are required' });
+  }
+
+  console.log('Gelen admin kullanıcı adı:', username);
+
+  db.query('SELECT * FROM admins WHERE username = ?', [username], (err, results) => {
+    if (err) {
+      console.error('Admin giriş yaparken hata oluştu:', err);
+      return res.status(500).json({ message: 'Error logging in' });
+    }
+
+    if (results.length === 0) {
+      console.log('Admin bulunamadı veya yanlış kullanıcı adı');
+      return res.status(401).json({ message: 'Invalid username or password' });
+    }
+
+    const admin = results[0];
+    console.log('Bulunan admin:', admin);
+
+    bcrypt.compare(password, admin.password, (err, isMatch) => {
       if (err) {
         console.error('Parola kontrol edilirken hata oluştu:', err);
         return res.status(500).json({ message: 'Error logging in' });
@@ -52,16 +91,22 @@ console.log('results : ', results);
 
       console.log('JWT token oluşturuluyor...');
       const token = jwt.sign(
-        { id: user.id, username: user.username },
+        { id: admin.id, username: admin.username },
         'your_jwt_secret', // Bu değeri güvenli bir şekilde yönetin
         { expiresIn: '1h' }
       );
       console.log('Oluşturulan token:', token);
-      res.json({ message: 'Token is valid',token, id: user.id });
-
-     
+      res.json({ message: 'Admin token is valid', token, id: admin.id });
     });
   });
+});
+
+// Çıkış yapma endpoint'i
+router.post('/logout', (req, res) => {
+  // Logout işlemi için gerekli işlem yapılıyor
+  // Genellikle token'ın geçersiz kılınması işlemidir, ancak bu basit örnekte sadece mesaj döndürülüyor
+  // Token'ı server tarafında geçersiz kılmak gerekebilir; bu kod parçası yalnızca client tarafında token'ı temizler
+  res.status(200).json({ message: 'Logout successful' });
 });
 
 module.exports = router;

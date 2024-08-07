@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-import * as jwtDecode from 'jwt-decode';
-
+const jwt = require('jsonwebtoken'); // jwt modülünü ekleyin
 const db = require('../config/db');
 
 // Kullanıcı kimlik doğrulama endpoint'i
@@ -18,11 +17,11 @@ router.post('/authenticate', (req, res) => {
       return res.status(401).json({ message: 'Invalid token' });
     }
 
-    const userId = user.id;
+    const userId = decoded.id; // 'decoded' nesnesinden userId'yi al
     console.log('Token valid. User ID:', userId);
 
     // Kullanıcı ID'sini veritabanında doğrula
-    db.query('SELECT * FROM users WHERE id = ?', [userId], (err, results) => {
+    db.query('SELECT * FROM admins WHERE id = ?', [userId], (err, results) => {
       if (err) {
         console.error('Error during authentication:', err);
         return res.status(500).json({ message: 'Error authenticating user' });
@@ -32,6 +31,7 @@ router.post('/authenticate', (req, res) => {
         console.log('User not found');
         return res.status(401).json({ message: 'User not found' });
       }
+
       // Kullanıcı bilgilerini yanıtla
       res.status(200).json({ message: 'Token is valid', token, id: userId });
     });
